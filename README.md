@@ -169,7 +169,7 @@ Results should look something like this:
 To get the actual data, you will need to use `pg/by-id` with the graph
 and returned ids.
 
-If you specify an underscor (`_`) as a binding symbol it will be
+If you specify an underscore (`_`) as a binding symbol it will be
 omitted in the results. We could write the following query as:
 
 ```clojure

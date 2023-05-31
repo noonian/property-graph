@@ -1,5 +1,6 @@
 (ns me.noonian.property-graph.dot-test
   (:require [clojure.test :refer [deftest is testing]]
+            [clojure.string :as str]
             [me.noonian.property-graph :as pg]
             [me.noonian.property-graph.dot :as dot]))
 
@@ -39,34 +40,22 @@
 (deftest graph->dot
   (testing "Renders digraph"
     (is (= "digraph {
+
+
 }"
            (dot/graph->dot (pg/new-graph)))))
-  #_(testing "Renders full graph using ids as labels"
-    (let [a (assoc (pg/node) :id :a)
-          b (assoc (pg/node) :id :b)
-          e (pg/directed-edge a :points-to b)
-          g (-> (pg/new-graph)
-                (pg/add-nodes [a b])
-                (pg/add-edge e))]
-      (is (= [ "digraph {
-
-}
-"
-              "\":b\""
-              "\":a\""
-              "\":a\" -> \":b\" [label=\":points-to\"]"]
-             (dot/graph->dot g)))))
   (testing "Renders full graph with :label-prop"
     (let [a (pg/node {:name "Node A"})
           b (pg/node {:name "Node B"})
           e (pg/directed-edge a :points-to b)
           g (-> (pg/new-graph)
                 (pg/add-nodes [a b])
-                (pg/add-edge e))]
-      #_(is (= "digraph {
-\"Node B\"
-\"Node A\"
-\"Node A\" -> \"Node B\" [label=\":points-to\"]
-}
-"
-             (dot/graph->dot g {:label-prop :name}))))))
+                (pg/add-edge e))
+          dot-txt (dot/graph->dot g {:label-prop :name})
+          lines (str/split-lines dot-txt)]
+      (is (= "digraph {" (first lines)))
+      (is (= "}" (last lines)))
+      (is (= #{"\"Node A\""
+               "\"Node B\""
+               "\"Node A\" -> \"Node B\" [label=\":points-to\"]"}
+             (into #{} (drop-last (drop 1 lines))))))))

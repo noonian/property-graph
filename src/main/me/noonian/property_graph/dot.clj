@@ -36,7 +36,7 @@
         (str/join "\n" (map #(render-node g % opts) (pg/nodes g)))
         "\n"
         (str/join "\n" (map #(render-edge g % opts) (pg/edges g)))
-        "\n}\n")))
+        "\n}")))
 
 (comment
 
