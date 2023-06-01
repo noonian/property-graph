@@ -46,7 +46,7 @@ Properties are arbitrary clojure maps.
 Edge labels are also arbitrary objects, but the visualization code
 assumes they can be safely serialized as a string.
 
-Currenly nodes are only indexed by id. Properties are not indexed.
+Currently nodes are only indexed by id. Properties are not indexed.
 
 ## API
 
