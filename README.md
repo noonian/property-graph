@@ -1,5 +1,10 @@
 # Labeled Property Graph
 
+```clojure
+me.noonian/property-graph {:git/url "https://github.com/noonian/property-graph.git"
+                           :git/sha "8cc062b25349c21ee77a5543fa459acde099fe2d"}
+```
+
 A small implementation of a labeled property graph. This
 implementation is immutable and does not implement "index-free
 adjacency", which means nodes do not store direct pointers to other
